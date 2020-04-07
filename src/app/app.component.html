@@ -1,0 +1,34 @@
+
+<div title="Click to start your quiz." (click)='onClick()' class="wrapper" *ngIf='QuizState === 0'>
+  <a href="#0" class="btn11">
+    <span>Start Quiz</span>
+    <div class="transition"></div>
+  </a>
+</div>
+
+
+<section *ngIf='QuizState === 1' class="QuizContainer">
+  <main>
+    <p class="QuestionText">{{QuizQuestion.Id}}. {{QuizQuestion.Question}}</p>
+    <div style="display: flex; flex-wrap: wrap; width: 100%;">
+      <div class="RadioContainer" *ngFor='let item of QuizQuestion.Options'>
+        <label class="RadioLabel" [@flyInOut]="'in'"> <span>{{item}}</span>
+          <input type="radio" name="quiz" value="{{item}}" (change)="OptionChangeHandler($event)">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <button [disabled]="selectedValue.length > 0 ? false : true"
+      [title]='selectedValue.length > 0 ? "" : "Please select correct answer from the option!" '
+      (click)='GetNextQuestion(QuizQuestion.Id)' class="btn">
+      <span [innerHTML]="QuizQuestion.Id === this.QuizList.length ? 'Submit' : 'Next'"></span> 
+      ({{QuizQuestion.Id}}/5)</button>
+  </footer>
+</section>
+
+
+<section class="wrapper" *ngIf="QuizState === 2">
+  <span class="QuizDone ">Your Result: {{QuizResult}}</span>
+</section>
