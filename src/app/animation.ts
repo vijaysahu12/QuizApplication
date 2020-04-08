@@ -29,3 +29,44 @@ export const slideFadeIn = animation(
     ],
     { params: { time: '200ms', startPos: '100%' } },
 );
+
+
+
+export const FlyingIn = animation([
+    trigger('flyInOut', [
+        state('in', style({
+            width: 220,
+            transform: 'translateX(0)', opacity: 1
+        })),
+        transition('void => *', [
+            style({ width: 350, transform: 'translateX(50px)', opacity: 0 }),
+            group([
+                animate('0.7s 0.5s ease', style({
+                    transform: 'translateX(0)',
+                    width: 120
+                })),
+                animate('1s ease', style({
+                    opacity: 1
+                }))
+            ])
+        ]),
+        transition('* => void', [
+            group([
+                animate('0.7s ease', style({
+                    transform: 'translateX(50px)',
+                    width: 10
+                })),
+                animate('0.7s 0.5s ease', style({
+                    opacity: 0
+                }))
+            ])
+        ])
+    ]),
+    trigger('shrinkOut', [
+        state('in', style({ height: '*' })),
+        transition('* => void', [
+            style({ height: '*' }),
+            animate(250, style({ height: 0 }))
+        ])
+    ])
+]);

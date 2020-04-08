@@ -1,0 +1,26 @@
+<section class="QuizContainer">
+    <main>
+      <p class="QuestionText">{{QuizQuestion.Id}}. {{QuizQuestion.Question}}</p>
+      <div style="display: flex; flex-wrap: wrap; width: 100%;">
+        <div class="RadioContainer" *ngFor='let item of QuizQuestion.Options'>
+          <label class="RadioLabel" > <span>{{item}}</span>
+            <input type="radio" name="quiz" value="{{item}}" (change)="OptionChangeHandler($event)">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </main>
+    <footer>
+
+      <button *ngIf="QuizQuestion.Id !== 5" [disabled]="selectedValue.length > 0 ? false : true"
+        title='Please select answer from the option!'
+        (click)='GetNextQuestion()' class="btn">
+        Next ({{QuizQuestion.Id}}/5)</button>
+
+      <button *ngIf="QuizQuestion.Id === 5"
+        title= "Please select and submit it for score!"
+        (click)='SubmitQuiz()' class="btn">
+        Submit </button>
+    </footer>
+  </section> 
+ 
